@@ -1,14 +1,14 @@
 console.log("Hello world");
 
-
-
 var PositionSelector = document.querySelector("#position-selector");
 var ShowStats = document.querySelector("#show-stats");
 PositionSelector.addEventListener("change", ShowHideStats);
 var Data;
 var ShowStatsSelector = document.querySelector("#show-stats-selector");
+var url = "https://s23-deploy-jacobzim-production.up.railway.app/";
+//var url = "http://localhost:8080/"
 
-
+//non server functions
 function UpdatePlayerOptions() {
     var Value = PositionSelector.value;
     var You = document.querySelector("#your-selector");
@@ -47,7 +47,6 @@ function UpdatePlayerOptions() {
     Opp.addEventListener("change", ShowHideStats);
     PopulateUpdatePlayerBoth();
 }
-
 function PopulateUpdatePlayerSelector() {
     var selector = document.querySelector("#update-select");
     selector.innerHTML = "";
@@ -109,103 +108,8 @@ function PopulateUpdatePlayerBoth() {
     PopulateUpdatePlayerSelector();
     PopulateUpdatePlayerAttributes();
 }
-
-function UpdatePlayer() {
-    var selector = document.querySelector("#update-select");
-    var player = selector.value;
-    player = getPlayerFromName(player);
-    console.log("PopulateUpdatePlayerAttributes() player", player);
-    
-    var name = document.querySelector("#update-name");
-    var col1 = document.querySelector("#update-primary-color");
-    var col2 = document.querySelector("#update-secondary-color");
-    var col3 = document.querySelector("#update-tertiary-color");
-    var tl = document.querySelector("#update-tl-chance");
-    var tr = document.querySelector("#update-tr-chance");
-    var br = document.querySelector("#update-br-chance");
-    var bl = document.querySelector("#update-bl-chance");
-    var pos = document.querySelector("#update-position");
-
-    
-    var TR = (parseInt(tl.value)+parseInt(tr.value)).toString();
-    var BR = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)).toString();
-    var BL = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)+parseInt(bl.value)).toString();
-    
-    var data = "Name=" + encodeURIComponent(player.Name) + "&" +
-    "Color1=" + encodeURIComponent(col1.value) + "&" +
-    "Color2=" + encodeURIComponent(col2.value) + "&" +
-    "Color3=" + encodeURIComponent(col3.value) + "&" +
-    "TopLeft=" + encodeURIComponent(tl.value) + "&" +
-    "TopRight=" + encodeURIComponent(TR) + "&" +
-    "BottomRight=" + encodeURIComponent(BR) + "&" +
-    "BottomLeft=" + encodeURIComponent(BL) + "&" +
-    "Position=" + encodeURIComponent(pos.value) + "&" +
-    "NewName=" + encodeURIComponent(name.value);
-
-    var id = player.id;
-    
-    fetch("http://localhost:8080/players/" + id, {
-        // request details
-        method: "PUT",
-        body: data,
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-     }).then(function (response) {
-        // when the server responds
-
-        if (response.status == 200) {
-            loadPlayersFromServer();
-        } else {
-            console.log("server responded with", response.status, "when trying to update a player");
-        }
-    });
-}
-
-function DeletePlayer() {
-    var selector = document.querySelector("#update-select");
-    var player = selector.value;
-    player = getPlayerFromName(player);
-    data = "id=" + encodeURIComponent(player.id);
-
-    id = player.id;
-
-    fetch("http://localhost:8080/players/" + id, {
-        // request details
-        method: "DELETE",
-        body: data,
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-     }).then(function (response) {
-        // when the server responds
-
-        if (response.status == 200) {
-            loadPlayersFromServer();
-        } else {
-            console.log("server responded with", response.status, "when trying to update a player");
-        }
-    });
-}
-
-function getPlayerFromName(name) {
-    var player;
-    for( goalie of Data["Goalies"] ) {
-        if(goalie.Name == name){
-            player = goalie;
-        }
-    }
-    for( shooter of Data["Shooters"] ) {
-        if(shooter.Name == name){
-            player = shooter;
-        }
-    }
-    return player;
-}
-
-
 function ChangeColors() {
-    console.log("changeColors");
+    //console.log("changeColors");
     var position = document.querySelector("#position-selector");
     var posVal = position.value;
 
@@ -275,8 +179,6 @@ function ChangeColors() {
         shead.style.backgroundColor = y1;
     }
 }
-
-
 function getRandomShooter() {
     var Shooters = Data["Shooters"];
     console.log("Shooters:", Shooters);
@@ -291,10 +193,6 @@ function getRandomGoalie() {
     var randomGoalies = Goalies[randomIndex];
     return randomGoalies;
 }
-
-
-
-
 function ShowHideStats() {
     //var Position = document.querySelector("#position-selector").value;
     console.log("ShowHideStats() ran");
@@ -370,14 +268,12 @@ function ShowHideStats() {
         }
     })
 }
-
-
 function MoveShooter(i) {
     var Shooter = document.querySelector("#shooter");
     if (i == 0) {
         Shooter.style.gridColumn = "1/2";
         Shooter.classList.remove("shooter-animation");
-        console.log("reset shooter");
+        //console.log("reset shooter");
     }
     else {
         Shooter.style.gridColumn = "4/5";
@@ -445,7 +341,7 @@ function MoveGoalie(corner) {
         Body.style.gridColumn = "2/3";
         Body.style.gridRow = "3/4";*/
     } else if (corner == 0) {
-        console.log("reset goalie");
+        //console.log("reset goalie");
         Head.style.gridColumn = "3/4";
         Head.style.gridRow = "2/3";
         Body.style.gridColumn = "3/4";
@@ -575,7 +471,6 @@ function Reset() {
         var par = res.parentNode.removeChild(res);
     }
 }
-
 function Whistle() {
     var You = document.querySelector("#your-selector");
     if (You.value == null) {
@@ -602,7 +497,6 @@ function Whistle() {
     }
     window.setTimeout(ShowResult, 3600, randomCorner, pickerCorner);
 }
-
 function ShowResult(corner1, corner2) {
     var result = document.createElement("h1");
     if (corner1 == corner2) {
@@ -616,10 +510,32 @@ function ShowResult(corner1, corner2) {
     result.id = "result";
     document.querySelector("#inner-goalframe").appendChild(result);
 }
-
-function ShowAddPlayers() {
+function AlternateAddPlayers() {
     console.log("ShowAddPlayers() called");
     var temp = document.querySelector("#add-player-menu");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    if (displayed =="none") {
+        temp.style.display = "grid";
+    } else {
+        temp.style.display = "none";
+    }
+}
+function ShowAddPlayers() {
+    var temp = document.querySelector("#add-player-menu");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "grid";
+}
+function HideAddPlayers() {
+    var temp = document.querySelector("#add-player-menu");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "none";
+}
+function AlternateUpdatePlayers() {
+    console.log("ShowUpdatePlayers() called");
+    var temp = document.querySelector("#update-player-menu");
     var style = getComputedStyle(temp);
     displayed = style.display;
     if (displayed =="none") {
@@ -633,13 +549,64 @@ function ShowUpdatePlayers() {
     var temp = document.querySelector("#update-player-menu");
     var style = getComputedStyle(temp);
     displayed = style.display;
+    temp.style.display = "grid";
+}
+function HideUpdatePlayers() {
+    console.log("ShowUpdatePlayers() called");
+    var temp = document.querySelector("#update-player-menu");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "none";
+}
+function AlternateLogin() {
+    //console.log("ShowLogin() called");
+    var temp = document.querySelector("#login-menu");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
     if (displayed =="none") {
         temp.style.display = "grid";
     } else {
         temp.style.display = "none";
     }
 }
-
+function ShowLogin() {
+    //console.log("ShowLogin() called");
+    var temp = document.querySelector("#login-menu");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "grid";
+}
+function HideLogin() {
+ //console.log("ShowLogin() called");
+ var temp = document.querySelector("#login-menu");
+ var style = getComputedStyle(temp);
+ displayed = style.display;
+ temp.style.display = "none";
+}
+function ClearLogin() {
+    var email = document.querySelector("#login-email");
+    var fname = document.querySelector("#login-fname");
+    var lname = document.querySelector("#login-lname");
+    var password = document.querySelector("#login-password");
+    email.value = "";
+    fname.value = "";
+    lname.value = "";
+    password.value = "";
+}
+function getPlayerFromName(name) {
+    var player;
+    for( goalie of Data["Goalies"] ) {
+        if(goalie.Name == name){
+            player = goalie;
+        }
+    }
+    for( shooter of Data["Shooters"] ) {
+        if(shooter.Name == name){
+            player = shooter;
+        }
+    }
+    return player;
+}
 function AddPlayer() {
     position = document.querySelector("#add-position-select").value;
     newName = document.querySelector("#add-name").value;
@@ -656,7 +623,41 @@ function AddPlayer() {
     //console.log("player object: ", PlayerObject);
     CreatePlayerOnServer(PlayerObject);
 }
+function HideAddUpdate() {
+    var temp = document.querySelector("#show-add-players");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "none";
+    temp = document.querySelector("#show-update-players");
+    style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "none";
+}
+function ShowAddUpdate() {
+    var temp = document.querySelector("#show-add-players");
+    var style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "inline-block";
+    temp = document.querySelector("#show-update-players");
+    style = getComputedStyle(temp);
+    displayed = style.display;
+    temp.style.display = "inline-block";
+}
+/*
+function Authorization() {
+    GetLoginStatus()
+    if(gLoggedIn) {
+        console.log("authorization true");
+        HideLogin();
+        ShowAddUpdate();
+    } else {
+        console.log("authorization false");
+        ShowLogin();
+        HideAddUpdate();
+    }
+}*/
 
+//server functions, handle fetch requests
 function CreatePlayerOnServer(playerObject) {
     //console.log("attempting to create player", playerObject.Name, "on server");
     /* the old way I did it
@@ -680,6 +681,7 @@ function CreatePlayerOnServer(playerObject) {
     
     fetch("http://localhost:8080/players", {
         // request details
+        credentials: 'include',
         method: "POST",
         body: data,
         headers: {
@@ -695,9 +697,27 @@ function CreatePlayerOnServer(playerObject) {
         }
     });
 }
-
+function GetLoginStatus() {
+    fetch("http://localhost:8080/loggedin", {
+        credentials: 'include'
+    }).then(function(response) {
+        if (response.status == 200) {
+            console.log("GetLoginStatus() success. Server responded with status ", response.status);
+            HideLogin();
+            ShowAddUpdate();
+        } else {
+            console.log("GetLoginStatus() failure. Server responded with status ", response.status);
+            ShowLogin();
+            HideAddUpdate();
+            HideAddPlayers();
+            HideUpdatePlayers();
+        }
+    });
+}
 function loadPlayersFromServer() {
-    fetch("http://localhost:8080/players").then(function(response) {
+    fetch("http://localhost:8080/players", {
+        credentials: 'include'
+    }).then(function(response) {
         response.json().then(function(data) {
             console.log("data received form server:", data);
             var g = [];
@@ -717,7 +737,6 @@ function loadPlayersFromServer() {
         });
     });
 }
-
 function ResetPlayerRoster() {
     console.log("resetPlayerRoster()");
     playersObject = [
@@ -815,8 +834,9 @@ function ResetPlayerRoster() {
     //var data = encodeURI(playerObject);
     //console.log("sending data to server:", data);
     
-    fetch("http://localhost:8080/players_reset", {
+    fetch(url + "players_reset", {
         // request details
+        credentials: 'include',
         method: "POST",
         body: players,
         headers: {
@@ -832,7 +852,174 @@ function ResetPlayerRoster() {
         }
     });
 }
+function UpdatePlayer() {
+    var selector = document.querySelector("#update-select");
+    var player = selector.value;
+    player = getPlayerFromName(player);
+    console.log("PopulateUpdatePlayerAttributes() player", player);
+    
+    var name = document.querySelector("#update-name");
+    var col1 = document.querySelector("#update-primary-color");
+    var col2 = document.querySelector("#update-secondary-color");
+    var col3 = document.querySelector("#update-tertiary-color");
+    var tl = document.querySelector("#update-tl-chance");
+    var tr = document.querySelector("#update-tr-chance");
+    var br = document.querySelector("#update-br-chance");
+    var bl = document.querySelector("#update-bl-chance");
+    var pos = document.querySelector("#update-position");
 
+    
+    var TR = (parseInt(tl.value)+parseInt(tr.value)).toString();
+    var BR = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)).toString();
+    var BL = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)+parseInt(bl.value)).toString();
+    
+    var data = "Name=" + encodeURIComponent(player.Name) + "&" +
+    "Color1=" + encodeURIComponent(col1.value) + "&" +
+    "Color2=" + encodeURIComponent(col2.value) + "&" +
+    "Color3=" + encodeURIComponent(col3.value) + "&" +
+    "TopLeft=" + encodeURIComponent(tl.value) + "&" +
+    "TopRight=" + encodeURIComponent(TR) + "&" +
+    "BottomRight=" + encodeURIComponent(BR) + "&" +
+    "BottomLeft=" + encodeURIComponent(BL) + "&" +
+    "Position=" + encodeURIComponent(pos.value) + "&" +
+    "NewName=" + encodeURIComponent(name.value);
+
+    var id = player.id;
+    
+    fetch(url + "players/" + id, {
+        // request details
+        credentials: 'include',
+        method: "PUT",
+        body: data,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+     }).then(function (response) {
+        // when the server responds
+
+        if (response.status == 200) {
+            loadPlayersFromServer();
+        } else {
+            console.log("server responded with", response.status, "when trying to update a player");
+            alert("You do not have ownership of this player")
+        }
+    });
+}
+function DeletePlayer() {
+    var selector = document.querySelector("#update-select");
+    var player = selector.value;
+    player = getPlayerFromName(player);
+    data = "id=" + encodeURIComponent(player.id);
+
+    id = player.id;
+    if (confirm("Are you sure you want to delete this player?")) {
+        fetch(url + "players/" + id, {
+            // request details
+            credentials: 'include',
+            method: "DELETE",
+            body: data,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(function (response) {
+            // when the server responds
+
+            if (response.status == 200) {
+                loadPlayersFromServer();
+            } else {
+                console.log("server responded with", response.status, "when trying to update a player");
+                alert("You do not have ownership of this player")
+            }
+        });
+    }
+}
+function CreateUserOnServer() {
+    var fname = document.querySelector("#login-fname").value;
+    var lname = document.querySelector("#login-lname").value;
+    var email = document.querySelector("#login-email").value;
+    var password = document.querySelector("#login-password").value;
+    var result = document.querySelector("#login-result");
+
+    var data = "fname=" + fname + "&" +
+    "lname=" + lname + "&" +
+    "email=" + email + "&" +
+    "password=" + password ;
+
+    fetch(url + "users/", {
+        // request details
+        credentials: 'include',
+        method: "POST",
+        body: data,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+     }).then(function (response) {
+        // when the server responds
+
+        if (response.status == 201) {
+            result.innerHTML = "Successful user creation: please login now";
+            ClearLogin();
+        } else {
+            result.innerHTML = "User account already created"
+            console.log("server responded with", response.status, "when trying to create a user");
+        }
+    });
+}
+function LoginUser() {
+    var email = document.querySelector("#login-email").value;
+    var password = document.querySelector("#login-password").value;
+    var result = document.querySelector("#login-result");
+
+    var data = "email=" + email + "&" +
+    "password=" + password ;
+
+    fetch(url + "sessions/", {
+        // request details
+        credentials: 'include',
+        method: "POST",
+        body: data,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+     }).then(function (response) {
+        // when the server responds
+
+        if (response.status == 201) {
+            result.innerHTML = "Successful user login";
+            GetLoginStatus();
+            loadPlayersFromServer();
+            ClearLogin();
+        } else {
+            result.innerHTML = "Error logging in: incompatible credentials"
+            console.log("server responded with", response.status, "when trying to log in a user");
+        }
+    });
+}
+//note to self, log out should be a delete method, not put
+function LogOutUser() {
+    var result = document.querySelector("#login-result");
+    fetch(url + "logout", {
+        // request details
+        credentials: 'include',
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+     }).then(function (response) {
+        // when the server responds
+
+        if (response.status == 200) {
+            result.innerHTML = "Successfully logged out";
+            GetLoginStatus();
+            loadPlayersFromServer();
+        } else {
+            console.log("server responded with", response.status, "when trying to logout");
+            result.innerHTML = "Already logged out";
+        }
+    });
+}
+
+// Add all event listeners
 function AddEventListeners() {
     var resetButton = document.querySelector("#reset-button");
     resetButton.addEventListener("click", Reset);
@@ -844,9 +1031,12 @@ function AddEventListeners() {
     ConfirmAddPlayerButton.addEventListener("click", AddPlayer);
     ConfirmAddPlayerButton.addEventListener("click", UpdatePlayerOptions);
     var ShowAddPlayersButton = document.querySelector("#show-add-players");
-    ShowAddPlayersButton.addEventListener("click", ShowAddPlayers);
+    ShowAddPlayersButton.addEventListener("click", AlternateAddPlayers);
     var ShowUpdatePlayersButton = document.querySelector("#show-update-players");
-    ShowUpdatePlayersButton.addEventListener("click", ShowUpdatePlayers);
+    ShowUpdatePlayersButton.addEventListener("click", AlternateUpdatePlayers);
+    var ShowLoginMenuButton = document.querySelector("#show-login");
+    ShowLoginMenuButton.addEventListener("click", AlternateLogin);
+
     var ShowUpdateSelect = document.querySelector("#update-select");
     ShowUpdateSelect.addEventListener("change", PopulateUpdatePlayerAttributes);
     var UpdatePlayerConfirm = document.querySelector("#update-player-confirm");
@@ -857,6 +1047,13 @@ function AddEventListeners() {
     ChooseCornerButton.addEventListener("click", CreateTargets);
     var WhistleButton = document.querySelector("#whistle");
     WhistleButton.addEventListener("click", Whistle);
+
+    var createUserButton = document.querySelector("#login-create");
+    createUserButton.addEventListener("click", CreateUserOnServer);
+    var loginUserButton = document.querySelector("#login-login");
+    loginUserButton.addEventListener("click", LoginUser);
+    var logoutUserButton = document.querySelector("#login-logout");
+    logoutUserButton.addEventListener("click", LogOutUser);
 
     PositionSelector.addEventListener("change", ChangeColors);
     var YourSelector = document.querySelector("#your-selector");
@@ -877,6 +1074,7 @@ function AddEventListeners() {
 function main() {
     AddEventListeners();
     loadPlayersFromServer();
+    GetLoginStatus();
 }
 
 main();

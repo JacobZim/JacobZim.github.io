@@ -4,135 +4,154 @@
         <link rel="stylesheet" href="style.css">
         
     </head>
-    <body id="grid">
-        <div id="leftcolumn">
-            <div id="add-player-menu">
-                <label>Position</label>
-                <select id="add-position-select">
-                    <option>Goalie</option>
-                    <option>Shooter</option>
-                </select>
-                <label>Name</label>
-                <input id="add-name">
-                <label>Primary Color (hex or text)</label>
-                <input id="add-primary-color">
-                <label>Secondary Color</label>
-                <input id="add-secondary-color">
-                <label>Tertiary Color</label>
-                <input id="add-tertiary-color">
-                <label>Top Left Chance (must sum to 100)</label>
-                <input id="add-tl-chance">
-                <label>Top Right Chance</label>
-                <input id="add-tr-chance">
-                <label>Bottom Right Chance</label>
-                <input id="add-br-chance">
-                <label>Bottom Left Chance</label>
-                <input id="add-bl-chance">
-                <button id="add-player-confirm">Add Player</button>
-                <button id="reset-roster-button">Reset Roster</button>
-            </div>
-        </div>
-        <h1 id="game-title">Penalty Kick Simulator</h1>
-        <div id="goalframe">
-            <div id="inner-goalframe">
-                <!--<input type="radio" id="top-left-radio" name="targets"></input>
-                <input type="radio" id="top-right-radio" name="targets"></input>
-                <input type="radio" id="bottom-right-radio" name="targets"></input>
-                <input type="radio" id="bottom-left-radio" name="targets"></input>--->
-                
-                <div id="goalie-head"></div>
-                <div id="goalie-body">
-                    <div id="goalie-body2">
-                        <div id="goalie-body3"></div>
-                    </div>
+    <body>
+        <div id="grid">
+            <div id="leftcolumn">
+                <div id="add-player-menu">
+                    <label>Position</label>
+                    <select id="add-position-select">
+                        <option>Goalie</option>
+                        <option>Shooter</option>
+                    </select>
+                    <label>Name</label>
+                    <input id="add-name">
+                    <label>Primary Color (hex or text)</label>
+                    <input id="add-primary-color">
+                    <label>Secondary Color</label>
+                    <input id="add-secondary-color">
+                    <label>Tertiary Color</label>
+                    <input id="add-tertiary-color">
+                    <label>Top Left Chance (must sum to 100)</label>
+                    <input id="add-tl-chance">
+                    <label>Top Right Chance</label>
+                    <input id="add-tr-chance">
+                    <label>Bottom Right Chance</label>
+                    <input id="add-br-chance">
+                    <label>Bottom Left Chance</label>
+                    <input id="add-bl-chance">
+                    <button id="add-player-confirm">Add Player</button>
+                    <button id="reset-roster-button">Reset Roster</button>
                 </div>
+            </div>
+            <h1 id="game-title">Penalty Kick Simulator</h1>
+            <div id="controls">
+                <div id="position-select">
+                    <label>You are:</label>
+                    <select id="position-selector">
+                        <option value="goalie">Goalie</option>
+                        <option value="shooter">Shooter</option>
+                    </select>
+                    <button id="show-add-players">Show Add Players</button>
+                    <button id="show-update-players">Show Update Players</button>
+                    <button id="show-login">Show Login</button>
+                </div>
+                <div id="goalie-shooter-select">
+                    <label id="your-label">You:</label>
+                    <select id="your-selector"></select>
+                    <label id="opponent-label">Opponent:</label>
+                    <select id="opponent-selector"></select>
+                    
+                    <button id="reset-button">Reset Game</button>
+                </div>
+                <div id="show-stats">
+                    <label id="show-stats-label">Opponent stats</label>
+                    <select id="show-stats-selector">
+                        <option value="hide">Hide</option>
+                        <option value="show">Show</option>
+                    </select>
+                    <label id="generate-label">Begin</label>
+                    <button id="generate-button">Choose Corner</button>
+                    <button id="whistle" >WHISTLE!</button>
+                </div>
+                <div id="stats-top-left"></div> 
+                <div id="stats-top-right"></div> 
                 
+                <!--<div id="stats-bottom-right"></div> 
+                <div id="stats-bottom-left"></div> -->
+                <!--<div id="generate">
+                    <label id="generate-label">Begin</label>
+                    <button id="generate-button">Choose Corner</button>
+                    <button id="whistle" >WHISTLE!</button>
+                </div>-->
             </div>
-        </div>
-        <div id="rightcolumn">
-            <div id="update-player-menu">
-                <label>Player</label>
-                <select id="update-select">
-                </select>
-                <label>Name</label>
-                <input id="update-name">
-                <label>Primary Color (hex or text)</label>
-                <input id="update-primary-color">
-                <label>Secondary Color</label>
-                <input id="update-secondary-color">
-                <label>Tertiary Color</label>
-                <input id="update-tertiary-color">
-                <label>Top Left Chance (must sum to 100)</label>
-                <input id="update-tl-chance">
-                <label>Top Right Chance</label>
-                <input id="update-tr-chance">
-                <label>Bottom Right Chance</label>
-                <input id="update-br-chance">
-                <label>Bottom Left Chance</label>
-                <input id="update-bl-chance">
-                <label>Position</label>
-                <select id="update-position">
-                </select>
-                <button id="update-player-confirm">Update Player</button>
-                <button id="delete-player-button">Delete Player</button>
+            <div id="goalframe">
+                <div id="inner-goalframe">
+                    <!--<input type="radio" id="top-left-radio" name="targets"></input>
+                    <input type="radio" id="top-right-radio" name="targets"></input>
+                    <input type="radio" id="bottom-right-radio" name="targets"></input>
+                    <input type="radio" id="bottom-left-radio" name="targets"></input>--->
+                    
+                    <div id="goalie-head"></div>
+                    <div id="goalie-body">
+                        <div id="goalie-body2">
+                            <div id="goalie-body3"></div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
-        </div>
-        <div id="ball-line">
-            <div id="six-box">
-                <div id="six-box-inner"></div>
-            </div>
-            <div id="ball-spot"></div>
-            <div id="ball">
-                <div id="ball-inner"></div>
-            </div>
-            <div id="shooter">
-                <div id="shooter-head"></div>
-                    <div id="shooter-body">
-                        <div id="shooter-body2">
-                            <div id="shooter-body3"></div>
+            <div id="ball-line">
+                <div id="six-box">
+                    <div id="six-box-inner"></div>
+                </div>
+                <div id="ball-spot"></div>
+                <div id="ball">
+                    <div id="ball-inner"></div>
+                </div>
+                <div id="shooter">
+                    <div id="shooter-head"></div>
+                        <div id="shooter-body">
+                            <div id="shooter-body2">
+                                <div id="shooter-body3"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="controls">
-            <div id="position-select">
-                <label>You are:</label>
-                <select id="position-selector">
-                    <option value="goalie">Goalie</option>
-                    <option value="shooter">Shooter</option>
-                </select>
-                <button id="show-add-players">Show Add Players</button>
-                <button id="show-update-players">Show Update Players</button>
+            <div id="rightcolumn">
+                <div id="update-player-menu">
+                    <label>Player</label>
+                    <select id="update-select">
+                    </select>
+                    <label>Name</label>
+                    <input id="update-name">
+                    <label>Primary Color (hex or text)</label>
+                    <input id="update-primary-color">
+                    <label>Secondary Color</label>
+                    <input id="update-secondary-color">
+                    <label>Tertiary Color</label>
+                    <input id="update-tertiary-color">
+                    <label>Top Left Chance (must sum to 100)</label>
+                    <input id="update-tl-chance">
+                    <label>Top Right Chance</label>
+                    <input id="update-tr-chance">
+                    <label>Bottom Right Chance</label>
+                    <input id="update-br-chance">
+                    <label>Bottom Left Chance</label>
+                    <input id="update-bl-chance">
+                    <label>Position</label>
+                    <select id="update-position">
+                    </select>
+                    <button id="update-player-confirm">Update Player</button>
+                    <button id="delete-player-button">Delete Player</button>
+                </div>
             </div>
-            <div id="goalie-shooter-select">
-                <label id="your-label">You:</label>
-                <select id="your-selector"></select>
-                <label id="opponent-label">Opponent:</label>
-                <select id="opponent-selector"></select>
-                
-                <button id="reset-button">Reset Game</button>
+            <div id="login-menu">
+                <h2>Log In* / Sign Up</h2>
+                <label>Email*</label>
+                <input id="login-email">
+                <label>First Name</label>
+                <input id="login-fname">
+                <label>Last Name</label>
+                <input id="login-lname">
+                <label>Password*</label>
+                <input id="login-password">
+                <div id="login-buttons">
+                    <button id="login-login">Login</button>
+                    <button id="login-create">Create User</button>
+                    <button id="login-logout">Logout</button>
+                    <p id="login-result"></p>
+                </div>
             </div>
-            <div id="show-stats">
-                <label id="show-stats-label">Opponent stats</label>
-                <select id="show-stats-selector">
-                    <option value="hide">Hide</option>
-                    <option value="show">Show</option>
-                </select>
-                <label id="generate-label">Begin</label>
-                <button id="generate-button">Choose Corner</button>
-                <button id="whistle" >WHISTLE!</button>
-            </div>
-            <div id="stats-top-left"></div> 
-            <div id="stats-top-right"></div> 
-            
-            <!--<div id="stats-bottom-right"></div> 
-            <div id="stats-bottom-left"></div> -->
-            <!--<div id="generate">
-                <label id="generate-label">Begin</label>
-                <button id="generate-button">Choose Corner</button>
-                <button id="whistle" >WHISTLE!</button>
-            </div>-->
         </div>
         <script src="app.js"></script>
     </body>
