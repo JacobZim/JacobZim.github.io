@@ -1,0 +1,439 @@
+
+:root {
+    --total-width: 850px;
+    --center-column-width: 675px;
+    --goal-height: 350px;
+    --goal-width:  var(--center-column-width);
+    --player-parts-dim: 100px;
+    --player-parts-offset: 10px;
+    --six-box-width: 1000px;
+    --six-box-height: 100px;
+    --six-box-thickness: 15px;
+    --ball-line-height: 200px;
+    --ball-line-thickness: 25px;
+    --ball-dim: 75px;
+    --ball-thickness: 5px;
+    --controls-padding: 8px;
+}
+
+@keyframes shooter {
+    from {grid-column: 1/2;}
+    33% {grid-column : 2/3;}
+    66% {grid-column: 3/4;}
+    to {grid-column: 4/5;}
+}
+.shooter-animation {
+    animation-name: shooter;
+    animation-duration: 3s;
+    animation-timing-function: cubic-bezier(1, 0.12, 0.99, 0.69);
+    animation-fill-mode: forwards;
+}
+@keyframes goalie-head-tl {
+    from {grid-column: 3/4;
+        grid-row: 2/3;}
+    50% {grid-column: 2/3;
+        grid-row: 2/3;}
+    to {grid-column: 1/2;
+        grid-row: 1/2;}
+}
+.goalie-head-tl {
+    animation-name: goalie-head-tl;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+@keyframes goalie-body-tl {
+    from {grid-column: 3/4;
+        grid-row: 3/4;}
+    50% {grid-column: 3/4;
+        grid-row: 3/4;}
+    to {grid-column: 2/3;
+        grid-row: 1/2;}
+}
+.goalie-body-tl {
+    animation-name: goalie-body-tl;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+
+@keyframes goalie-head-tr {
+    from {grid-column: 3/4;
+        grid-row: 2/3;}
+    50% {grid-column: 4/5;
+        grid-row: 2/3;}
+    to {grid-column: 5/6;
+        grid-row: 1/2;}
+}
+.goalie-head-tr {
+    animation-name: goalie-head-tr;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+@keyframes goalie-body-tr {
+    from {grid-column: 3/4;
+        grid-row: 3/4;}
+    50% {grid-column: 3/4;
+        grid-row: 3/4;}
+    to {grid-column: 4/5;
+        grid-row: 1/2;}
+}
+.goalie-body-tr {
+    animation-name: goalie-body-tr;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+
+@keyframes goalie-head-br {
+    from {grid-column: 3/4;
+        grid-row: 2/3;}
+    50% {grid-column: 4/5;
+        grid-row: 2/3;}
+    to {grid-column: 5/6;
+        grid-row: 3/4;}
+}
+.goalie-head-br {
+    animation-name: goalie-head-br;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+@keyframes goalie-body-br {
+    from {grid-column: 3/4;
+        grid-row: 3/4;}
+    50% {grid-column: 3/4;
+        grid-row: 3/4;}
+    to {grid-column: 4/5;
+        grid-row: 3/4;}
+}
+.goalie-body-br {
+    animation-name: goalie-body-br;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+
+@keyframes goalie-head-bl {
+    from {grid-column: 3/4;
+        grid-row: 2/3;}
+    50% {grid-column: 2/3;
+        grid-row: 2/3;}
+    to {grid-column: 1/2;
+        grid-row: 3/4;}
+}
+.goalie-head-bl {
+    animation-name: goalie-head-bl;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+@keyframes goalie-body-bl {
+    from {grid-column: 3/4;
+        grid-row: 3/4;}
+    50% {grid-column: 3/4;
+        grid-row: 3/4;}
+    to {grid-column: 2/3;
+        grid-row: 3/4;}
+}
+.goalie-body-bl {
+    animation-name: goalie-body-bl;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+
+* {
+    font-family: sans-serif;
+}
+label {
+    font-size: 14px;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: minmax(0, auto) calc((var(--total-width) - var(--center-column-width)) / 2) var(--center-column-width) calc((var(--total-width) - var(--center-column-width)) / 2) minmax(0, auto);
+}
+
+#leftcolumn {
+    grid-column: 1/3;
+    grid-row: 2/6;
+    /*width: calc((100vw - var(--goal-width))/2);*/
+}
+#add-player-menu {
+    display: none;
+    grid-template-rows: auto;
+    max-width: 300px;
+    margin: auto;
+}
+#add-player-confirm {
+    margin: 25px;
+}
+#rightcolumn {
+    grid-column: 4/6;
+    grid-row: 2/6;
+    /*width: calc((100vw - var(--goal-width))/2);*/
+}
+#update-player-menu {
+    display: none;
+    grid-template-rows: auto;
+    max-width: 300px;
+    margin: auto;
+}
+#update-player-confirm {
+    margin: 25px;
+}
+#top-left-radio {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+#top-right-radio {
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
+#bottom-right-radio {
+    grid-column: 5/6;
+    grid-row: 3/4;
+}
+#bottom-left-radio {
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+#goalframe {
+    background-color: black;
+    width: calc(var(--goal-width));
+    height: calc(var(--goal-height));
+    grid-column: 3/4;
+    grid-row: 3/6;
+    margin: auto;
+}
+#inner-goalframe {
+    background-color:gray;
+    width: calc(var(--goal-width) - 50px);
+    height: calc(var(--goal-height) - 25px);
+    margin: 25px 25px 0px 25px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+#goalie-head {
+    background-color:red;
+    width:var(--player-parts-dim); 
+    height:var(--player-parts-dim); 
+    border-radius:125px;
+    margin: auto;
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+#goalie-body {
+    background-color:red;
+    width:var(--player-parts-dim); 
+    height:var(--player-parts-dim); 
+    margin: auto;
+    padding: var(--player-parts-offset) 0 0 var(--player-parts-offset);
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+#goalie-body2 {
+    background-color:white;
+    width:calc(var(--player-parts-dim) - (2 * var(--player-parts-offset))); 
+    height:calc(var(--player-parts-dim) - (2 * var(--player-parts-offset))); 
+    padding: var(--player-parts-offset) 0 0 var(--player-parts-offset);
+}
+#goalie-body3 {
+    background-color:blue;
+    width:calc(var(--player-parts-dim) - (3 * var(--player-parts-offset))); 
+    height:calc(var(--player-parts-dim) - (3 * var(--player-parts-offset))); 
+    margin: 0vw 0 0 0vw;
+}
+
+#game-title {
+    grid-column: 3/4;
+    margin: 0 auto 0 auto;
+}
+
+#ball-line {
+    grid-column: 2/5;
+    grid-row: 6/7;
+    background-color: greenyellow;
+    height: var(--ball-line-height);
+    display: grid;
+    width: calc(var(--total-width) - (2 * var(--ball-line-thickness)));
+    padding: 0 var(--ball-line-thickness) var(--ball-line-thickness) var(--ball-line-thickness);
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+#six-box {
+    background-color: white;
+    width: calc(var(--total-width) - (2 * var(--ball-line-thickness)));
+    height: var(--six-box-height);
+    grid-column: 1/8;
+    grid-row: 1/2;
+    padding: 0 calc(var(--six-box-width)- var(--six-box-thickness)) calc(var(--six-box-height)- var(--six-box-thickness)) calc(var(--six-box-width)- var(--six-box-thickness));
+    margin: auto;
+}
+#six-box-inner {
+    background-color: greenyellow;
+    width: calc(var(--total-width) - (2 * var(--ball-line-thickness)) - (2 * var(--six-box-thickness)));
+    height: calc(var(--six-box-height) - var(--six-box-thickness));
+    grid-column: 1/6;
+    grid-row: 1/2;
+    margin: auto;
+}
+#ball {
+    background-color:black;
+    width:var(--ball-dim); 
+    height:var(--ball-dim); 
+    border-radius:var(--ball-dim);
+    grid-column:2/3;
+    grid-row:3/4;
+    padding: var(--ball-thickness) 0 0 var(--ball-thickness);
+    margin: auto;
+}
+#ball-inner {
+    background-color:white;
+    width: calc(var(--ball-dim) - (var(--ball-thickness))); 
+    height: calc(var(--ball-dim) - (var(--ball-thickness))); 
+    border-radius: calc(var(--ball-dim) - (var(--ball-thickness)));
+    grid-column:2/3;
+    grid-row:3/4;
+}
+#ball-spot {
+    grid-column: 4/5;
+    grid-row: 3/4;
+    background-color: white;
+    width: calc(var(--total-width) / 8);
+    height: 10px;
+    margin: auto;
+}
+
+#shooter {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    margin: auto;
+}
+#shooter-head {
+    background-color:blue;
+    width:var(--player-parts-dim); 
+    height:var(--player-parts-dim); 
+    border-radius:125px;
+    margin: auto;
+}
+#shooter-body {
+    background-color:red;
+    width:var(--player-parts-dim); 
+    height:var(--player-parts-dim); 
+    margin: auto;
+    padding: var(--player-parts-offset) 0 0 var(--player-parts-offset);
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+#shooter-body2 {
+    background-color:white;
+    width:calc(var(--player-parts-dim) - (2 * var(--player-parts-offset))); 
+    height:calc(var(--player-parts-dim) - (2 * var(--player-parts-offset))); 
+    padding: var(--player-parts-offset) 0 0 var(--player-parts-offset);
+}
+#shooter-body3 {
+    background-color:blue;
+    width:calc(var(--player-parts-dim) - (3 * var(--player-parts-offset))); 
+    height:calc(var(--player-parts-dim) - (3 * var(--player-parts-offset))); 
+    margin: 0vw 0 0 0vw;
+}
+
+#controls {
+    grid-column: 3/4;
+    grid-row: 2/3;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    background-color: green;
+    color: white;
+}
+#position-select {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display:flex;
+    flex-flow: column;
+    padding: var(--controls-padding);
+}
+#reset-button {
+    margin: auto;
+}
+#reset-roster-button {
+    margin: auto;
+    font-size: 10px;
+}
+#goalie-shooter-select {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display:flex;
+    flex-flow: column;
+    padding: var(--controls-padding);
+}
+#show-add-players {
+    font-size: 12px;
+    margin: auto;
+}
+#show-update-players {
+    font-size: 10px;
+    margin: auto;
+}
+#delete-player-button {
+    margin: auto;
+    font-size: 10px;
+}
+#show-stats {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    display: flex;
+    flex-flow:column;
+    padding: var(--controls-padding);
+}
+#stats-top-left {
+    grid-column: 4/5;
+    grid-row: 1/2;
+    display:flex;
+    flex-flow:column;
+    padding: var(--controls-padding);
+}
+#stats-top-right {
+    grid-column: 5/6;
+    grid-row: 1/2;
+    display:flex;
+    flex-flow:column;
+    padding: var(--controls-padding);
+}
+#stats-bottom-right {
+    grid-column: 5/6;
+    grid-row: 2/3;
+    display:flex;
+    flex-flow:column;
+    padding: var(--controls-padding);
+}
+#stats-bottom-left {
+    grid-column: 4/5;
+    grid-row: 2/3;
+    display:flex;
+    flex-flow:column;
+    padding: var(--controls-padding);
+}
+
+#generate {
+    grid-column: 3/4;
+    grid-row: 2/3;
+    padding:1vw;
+    display: flex;
+    flex-flow: column;
+}
+
