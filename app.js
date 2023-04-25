@@ -679,7 +679,7 @@ function CreatePlayerOnServer(playerObject) {
     //var data = encodeURI(playerObject);
     //console.log("sending data to server:", data);
     
-    fetch("http://localhost:8080/players", {
+    fetch(url + "players", {
         // request details
         credentials: 'include',
         method: "POST",
@@ -698,7 +698,7 @@ function CreatePlayerOnServer(playerObject) {
     });
 }
 function GetLoginStatus() {
-    fetch("http://localhost:8080/loggedin", {
+    fetch(url + "loggedin", {
         credentials: 'include'
     }).then(function(response) {
         if (response.status == 200) {
@@ -715,7 +715,7 @@ function GetLoginStatus() {
     });
 }
 function loadPlayersFromServer() {
-    fetch("http://localhost:8080/players", {
+    fetch(url + "players", {
         credentials: 'include'
     }).then(function(response) {
         response.json().then(function(data) {
