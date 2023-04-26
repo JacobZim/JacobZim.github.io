@@ -138,7 +138,7 @@ function ChangeColors() {
         })
         Data["Goalies"].forEach(element => {
             //console.log("names:", element["Name"], element["Color1"], OValue);
-            if (element["Name"] == YValue) {
+            if (element["name"] == YValue) {
                 y1 = element["color1"];
                 y2 = element["color2"];
                 y3 = element["color3"];
@@ -153,7 +153,6 @@ function ChangeColors() {
         sbod3.style.backgroundColor = o3;
         shead.style.backgroundColor = o1;
     } else if (posVal == "shooter") {
-        console.log("posval is shooter");
         Data["Shooters"].forEach(element => {
             if (element["name"] == YValue) {
                 y1 = element["color1"];
@@ -443,7 +442,6 @@ function GetRandomCorner() {
         })
     } else if (posVal == "shooter") {
         Data["Goalies"].forEach(element => {
-            console.log("names:", element["Name"], OValue);
             if (element["name"] == OValue) {
                 TL = element["topleft"];
                 TR = element["topright"];
