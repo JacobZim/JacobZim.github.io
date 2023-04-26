@@ -19,28 +19,28 @@ function UpdatePlayerOptions() {
     if(Value == "shooter") {
         Data["Goalies"].forEach(element => {
             var Option = document.createElement("option");
-            Option.value = element["Name"];
-            Option.innerHTML = element["Name"];
+            Option.value = element["name"];
+            Option.innerHTML = element["name"];
             Opp.appendChild(Option);
         })
         Data["Shooters"].forEach(element => {
             var Option = document.createElement("option");
-            Option.value = element["Name"];
-            Option.innerHTML = element["Name"];
+            Option.value = element["name"];
+            Option.innerHTML = element["name"];
             You.appendChild(Option);
         })
     } else if(Value == "goalie") {
         Data["Goalies"].forEach(element => {
             var Option = document.createElement("option");
-            Option.value = element["Name"];
-            Option.innerHTML = element["Name"];
+            Option.value = element["name"];
+            Option.innerHTML = element["name"];
             You.appendChild(Option);
         })
         
         Data["Shooters"].forEach(element => {
             var Option = document.createElement("option");
-            Option.value = element["Name"];
-            Option.innerHTML = element["Name"];
+            Option.value = element["name"];
+            Option.innerHTML = element["name"];
             Opp.appendChild(Option);
         })
     }
@@ -52,14 +52,14 @@ function PopulateUpdatePlayerSelector() {
     selector.innerHTML = "";
     Data["Goalies"].forEach(element => {
         var Option = document.createElement("option");
-        Option.value = element["Name"];
-        Option.innerHTML = element["Name"];
+        Option.value = element["name"];
+        Option.innerHTML = element["name"];
         selector.appendChild(Option);
     })
     Data["Shooters"].forEach(element => {
         var Option = document.createElement("option");
-        Option.value = element["Name"];
-        Option.innerHTML = element["Name"];
+        Option.value = element["name"];
+        Option.innerHTML = element["name"];
         selector.appendChild(Option);
     })
 }
@@ -80,14 +80,14 @@ function PopulateUpdatePlayerAttributes() {
     pos.innerHTML = "";
 
     player = getPlayerFromName(player);
-    name.value = player.Name;
-    col1.value = player.Color1;
-    col2.value = player.Color2;
-    col3.value = player.Color3;
-    tl.value = player.TopLeft;
-    tr.value = player.TopRight - player.TopLeft;
-    br.value = player.BottomRight - player.TopRight;
-    bl.value = player.BottomLeft - player.BottomRight;
+    name.value = player.name;
+    col1.value = player.color1;
+    col2.value = player.color2;
+    col3.value = player.color3;
+    tl.value = player.topleft;
+    tr.value = player.toplight - player.topleft;
+    br.value = player.bottomright - player.topright;
+    bl.value = player.bottomleft - player.bottomright;
     
     var Option = document.createElement("option");
     Option.value = player.Position;
@@ -95,11 +95,11 @@ function PopulateUpdatePlayerAttributes() {
     pos.appendChild(Option);
 
     var Option2 = document.createElement("option");
-    if(player.Position == "Goalie") {
-        Option2.value = "Shooter";
+    if(player.position == "goalie") {
+        Option2.value = "shooter";
         Option2.innerHTML = "Shooter";
     } else {
-        Option2.value = "Goalie";
+        Option2.value = "goalie";
         Option2.innerHTML = "Goalie";
     }
     pos.appendChild(Option2);
@@ -130,18 +130,18 @@ function ChangeColors() {
     
     if (posVal == "goalie") {
         Data["Shooters"].forEach(element => {
-            if (element["Name"] == OValue) {
-                o1 = element["Color1"];
-                o2 = element["Color2"];
-                o3 = element["Color3"];
+            if (element["name"] == OValue) {
+                o1 = element["color1"];
+                o2 = element["color2"];
+                o3 = element["color3"];
             }
         })
         Data["Goalies"].forEach(element => {
             //console.log("names:", element["Name"], element["Color1"], OValue);
             if (element["Name"] == YValue) {
-                y1 = element["Color1"];
-                y2 = element["Color2"];
-                y3 = element["Color3"];
+                y1 = element["color1"];
+                y2 = element["color2"];
+                y3 = element["color3"];
             }
         })
         gbod1.style.backgroundColor = y1;
@@ -155,18 +155,18 @@ function ChangeColors() {
     } else if (posVal == "shooter") {
         console.log("posval is shooter");
         Data["Shooters"].forEach(element => {
-            if (element["Name"] == YValue) {
-                y1 = element["Color1"];
-                y2 = element["Color2"];
-                y3 = element["Color3"];
+            if (element["name"] == YValue) {
+                y1 = element["color1"];
+                y2 = element["color2"];
+                y3 = element["color3"];
             }
         })
         Data["Goalies"].forEach(element => {
             console.log("names:", element["Name"], OValue);
-            if (element["Name"] == OValue) {
-                o1 = element["Color1"];
-                o2 = element["Color2"];
-                o3 = element["Color3"];
+            if (element["name"] == OValue) {
+                o1 = element["color1"];
+                o2 = element["color2"];
+                o3 = element["color3"];
             }
         })
         gbod1.style.backgroundColor = o1;
@@ -232,13 +232,13 @@ function ShowHideStats() {
     console.log("PositionArray:", PositionArray);
     console.log("Player:", Player);
     PositionArray.forEach(element => {
-        if (element["Name"] == Player) {
+        if (element["name"] == Player) {
             var El = document.createElement("label");
             El.innerHTML="Top Left %";
             TopLeft.appendChild(El);
-            console.log("TopLeft:", TopLeft);
+            console.log("topleft:", TopLeft);
             El = document.createElement("h4");
-            El.innerHTML=element["TopLeft"].toString();
+            El.innerHTML=element["topleft"].toString();
             El.style.margin = "0";
             TopLeft.appendChild(El);
 
@@ -246,7 +246,7 @@ function ShowHideStats() {
             El.innerHTML="Top Right %";
             TopRight.appendChild(El);
             El = document.createElement("h4");
-            El.innerHTML=(element["TopRight"] - element["TopLeft"]).toString();
+            El.innerHTML=(element["topright"] - element["topleft"]).toString();
             El.style.margin = "0";
             TopRight.appendChild(El);
 
@@ -254,7 +254,7 @@ function ShowHideStats() {
             El.innerHTML="Bottom Right %";
             TopRight.appendChild(El);
             El = document.createElement("h4");
-            El.innerHTML=(element["BottomRight"] - element["TopRight"]).toString();
+            El.innerHTML=(element["bottomright"] - element["topright"]).toString();
             El.style.margin = "0";
             TopRight.appendChild(El);
 
@@ -262,7 +262,7 @@ function ShowHideStats() {
             El.innerHTML="Bottom Left %";
             TopLeft.appendChild(El);
             El = document.createElement("h4")
-            El.innerHTML=(element["BottomLeft"] - element["BottomRight"]).toString();
+            El.innerHTML=(element["bottomleft"] - element["bottomright"]).toString();
             El.style.margin = "0";
             TopLeft.appendChild(El);
         }
@@ -434,21 +434,21 @@ function GetRandomCorner() {
     
     if (posVal == "goalie") {
         Data["Shooters"].forEach(element => {
-            if (element["Name"] == OValue) {
-                TL = element["TopLeft"];
-                TR = element["TopRight"];
-                BR = element["BottomRight"];
-                BL = element["BottomLeft"];
+            if (element["name"] == OValue) {
+                TL = element["topleft"];
+                TR = element["topright"];
+                BR = element["bottomright"];
+                BL = element["bottomleft"];
             }
         })
     } else if (posVal == "shooter") {
         Data["Goalies"].forEach(element => {
             console.log("names:", element["Name"], OValue);
-            if (element["Name"] == OValue) {
-                TL = element["TopLeft"];
-                TR = element["TopRight"];
-                BR = element["BottomRight"];
-                BL = element["BottomLeft"];
+            if (element["name"] == OValue) {
+                TL = element["topleft"];
+                TR = element["topright"];
+                BR = element["bottomright"];
+                BL = element["bottomleft"];
             }
         })
     }
@@ -594,17 +594,19 @@ function ClearLogin() {
     password.value = "";
 }
 function getPlayerFromName(name) {
+    console.log(name);
     var player;
     for( goalie of Data["Goalies"] ) {
-        if(goalie.Name == name){
+        if(goalie.name == name){
             player = goalie;
         }
     }
     for( shooter of Data["Shooters"] ) {
-        if(shooter.Name == name){
+        if(shooter.name == name){
             player = shooter;
         }
     }
+    console.log("getPlayerFromName player: ", player);
     return player;
 }
 function AddPlayer() {
@@ -618,8 +620,8 @@ function AddPlayer() {
     brChance = trChance + parseInt(document.querySelector("#add-br-chance").value);
     blChance = brChance + parseInt(document.querySelector("#add-bl-chance").value);
     console.log("AddPlayer things: ",position,newName,pColor,sColor,tColor,tlChance,trChance,brChance,blChance);
-    var PlayerObject = {"Name":newName, "Color1": pColor, "Color2": sColor, "Color3": tColor,
-    "TopLeft": tlChance, "TopRight": trChance, "BottomRight": brChance, "BottomLeft": blChance, "Position": position};
+    var PlayerObject = {"name":newName, "color1": pColor, "color2": sColor, "color3": tColor,
+    "topleft": tlChance, "topright": trChance, "bottomright": brChance, "bottomleft": blChance, "position": position};
     //console.log("player object: ", PlayerObject);
     CreatePlayerOnServer(PlayerObject);
 }
@@ -665,15 +667,15 @@ function CreatePlayerOnServer(playerObject) {
     console.log("playerObject: ", playerObject);
     var data = playerObject;
     */
-    var data = "Name=" + encodeURIComponent(playerObject.Name) + "&" +
-    "Color1=" + encodeURIComponent(playerObject.Color1) + "&" +
-    "Color2=" + encodeURIComponent(playerObject.Color2) + "&" +
-    "Color3=" + encodeURIComponent(playerObject.Color3) + "&" +
-    "TopLeft=" + encodeURIComponent(playerObject.TopLeft) + "&" +
-    "TopRight=" + encodeURIComponent(playerObject.TopRight) + "&" +
-    "BottomRight=" + encodeURIComponent(playerObject.BottomRight) + "&" +
-    "BottomLeft=" + encodeURIComponent(playerObject.BottomLeft) + "&" +
-    "Position=" + encodeURIComponent(playerObject.Position);
+    var data = "name=" + encodeURIComponent(playerObject.Name) + "&" +
+    "color1=" + encodeURIComponent(playerObject.Color1) + "&" +
+    "color2=" + encodeURIComponent(playerObject.Color2) + "&" +
+    "color3=" + encodeURIComponent(playerObject.Color3) + "&" +
+    "topleft=" + encodeURIComponent(playerObject.TopLeft) + "&" +
+    "topright=" + encodeURIComponent(playerObject.TopRight) + "&" +
+    "bottomright=" + encodeURIComponent(playerObject.BottomRight) + "&" +
+    "bottomleft=" + encodeURIComponent(playerObject.BottomLeft) + "&" +
+    "position=" + encodeURIComponent(playerObject.Position);
 
     //console.log("sending data to server:", data);
     //var data = encodeURI(playerObject);
@@ -723,9 +725,10 @@ function loadPlayersFromServer() {
             var g = [];
             var s = [];
             for(player of data) {
-                if(player.Position == "Shooter") {
+                console.log(player, player.position);
+                if(player.position == "Shooter") {
                     s.push(player);
-                } else if (player.Position == "Goalie") {
+                } else if (player.position == "Goalie") {
                     g.push(player);
                 }
             }
@@ -741,11 +744,11 @@ function ResetPlayerRoster() {
     console.log("resetPlayerRoster()");
     playersObject = [
             {
-            "Name": "Lev Yashin",
-            "Color1": "red",
-            "Color2": "yellow",
-            "Color3": "red",
-            "TopLeft": 40,
+            "name": "Lev Yashin",
+            "color1": "red",
+            "color2": "yellow",
+            "color3": "red",
+            "topleft": 40,
             "TopRight": 60,
             "BottomRight": 80,
             "BottomLeft": 100,
@@ -756,7 +759,7 @@ function ResetPlayerRoster() {
             "Color1": "red",
             "Color2": "yellow",
             "Color3": "white",
-            "TopLeft": 20,
+            "topleft": 20,
             "TopRight": 60,
             "BottomRight": 80,
             "BottomLeft": 100,
@@ -767,7 +770,7 @@ function ResetPlayerRoster() {
             "Color1": "green",
             "Color2": "white",
             "Color3": "red",
-            "TopLeft": 20,
+            "topleft": 20,
             "TopRight": 40,
             "BottomRight": 80,
             "BottomLeft": 100,
@@ -778,7 +781,7 @@ function ResetPlayerRoster() {
             "Color1": "red",
             "Color2": "white",
             "Color3": "blue",
-            "TopLeft": 20,
+            "topleft": 20,
             "TopRight": 40,
             "BottomRight": 60,
             "BottomLeft": 100,
@@ -789,7 +792,7 @@ function ResetPlayerRoster() {
             "Color1": "yellow",
             "Color2": "lightskyblue",
             "Color3": "white",
-            "TopLeft": 40,
+            "topleft": 40,
             "TopRight": 60,
             "BottomRight": 80,
             "BottomLeft": 100,
@@ -800,7 +803,7 @@ function ResetPlayerRoster() {
             "Color1": "red",
             "Color2": "green",
             "Color3": "yellow",
-            "TopLeft": 20,
+            "topleft": 20,
             "TopRight": 60,
             "BottomRight": 80,
             "BottomLeft": 100,
@@ -811,7 +814,7 @@ function ResetPlayerRoster() {
             "Color1": "green",
             "Color2": "yellow",
             "Color3": "blue",
-            "TopLeft": 20,
+            "topleft": 20,
             "TopRight": 40,
             "BottomRight": 80,
             "BottomLeft": 100,
@@ -822,7 +825,7 @@ function ResetPlayerRoster() {
             "Color1": "red",
             "Color2": "white",
             "Color3": "blue",
-            "TopLeft": 20,
+            "topleft": 20,
             "TopRight": 40,
             "BottomRight": 60,
             "BottomLeft": 100,
@@ -874,15 +877,15 @@ function UpdatePlayer() {
     var BL = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)+parseInt(bl.value)).toString();
     
     var data = "Name=" + encodeURIComponent(player.Name) + "&" +
-    "Color1=" + encodeURIComponent(col1.value) + "&" +
-    "Color2=" + encodeURIComponent(col2.value) + "&" +
-    "Color3=" + encodeURIComponent(col3.value) + "&" +
-    "TopLeft=" + encodeURIComponent(tl.value) + "&" +
-    "TopRight=" + encodeURIComponent(TR) + "&" +
-    "BottomRight=" + encodeURIComponent(BR) + "&" +
-    "BottomLeft=" + encodeURIComponent(BL) + "&" +
-    "Position=" + encodeURIComponent(pos.value) + "&" +
-    "NewName=" + encodeURIComponent(name.value);
+    "color1=" + encodeURIComponent(col1.value) + "&" +
+    "color2=" + encodeURIComponent(col2.value) + "&" +
+    "color3=" + encodeURIComponent(col3.value) + "&" +
+    "topleft=" + encodeURIComponent(tl.value) + "&" +
+    "topright=" + encodeURIComponent(TR) + "&" +
+    "bottomright=" + encodeURIComponent(BR) + "&" +
+    "bottomleft=" + encodeURIComponent(BL) + "&" +
+    "position=" + encodeURIComponent(pos.value) + "&" +
+    "newname=" + encodeURIComponent(name.value);
 
     var id = player.id;
     
