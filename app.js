@@ -85,21 +85,21 @@ function PopulateUpdatePlayerAttributes() {
     col2.value = player.color2;
     col3.value = player.color3;
     tl.value = player.topleft;
-    tr.value = player.toplight - player.topleft;
+    tr.value = player.topright - player.topleft;
     br.value = player.bottomright - player.topright;
     bl.value = player.bottomleft - player.bottomright;
     
     var Option = document.createElement("option");
-    Option.value = player.Position;
-    Option.innerHTML = player.Position;
+    Option.value = player.position;
+    Option.innerHTML = player.position;
     pos.appendChild(Option);
 
     var Option2 = document.createElement("option");
-    if(player.position == "goalie") {
-        Option2.value = "shooter";
+    if(player.position == "Goalie") {
+        Option2.value = "Shooter";
         Option2.innerHTML = "Shooter";
     } else {
-        Option2.value = "goalie";
+        Option2.value = "Goalie";
         Option2.innerHTML = "Goalie";
     }
     pos.appendChild(Option2);
@@ -667,15 +667,15 @@ function CreatePlayerOnServer(playerObject) {
     console.log("playerObject: ", playerObject);
     var data = playerObject;
     */
-    var data = "name=" + encodeURIComponent(playerObject.Name) + "&" +
-    "color1=" + encodeURIComponent(playerObject.Color1) + "&" +
-    "color2=" + encodeURIComponent(playerObject.Color2) + "&" +
-    "color3=" + encodeURIComponent(playerObject.Color3) + "&" +
-    "topleft=" + encodeURIComponent(playerObject.TopLeft) + "&" +
-    "topright=" + encodeURIComponent(playerObject.TopRight) + "&" +
-    "bottomright=" + encodeURIComponent(playerObject.BottomRight) + "&" +
-    "bottomleft=" + encodeURIComponent(playerObject.BottomLeft) + "&" +
-    "position=" + encodeURIComponent(playerObject.Position);
+    var data = "Name=" + encodeURIComponent(playerObject.name) + "&" +
+    "Color1=" + encodeURIComponent(playerObject.color1) + "&" +
+    "Color2=" + encodeURIComponent(playerObject.color2) + "&" +
+    "Color3=" + encodeURIComponent(playerObject.color3) + "&" +
+    "TopLeft=" + encodeURIComponent(playerObject.topleft) + "&" +
+    "TopRight=" + encodeURIComponent(playerObject.topright) + "&" +
+    "BottomRight=" + encodeURIComponent(playerObject.bottomright) + "&" +
+    "BottomLeft=" + encodeURIComponent(playerObject.bottomleft) + "&" +
+    "Position=" + encodeURIComponent(playerObject.position);
 
     //console.log("sending data to server:", data);
     //var data = encodeURI(playerObject);
@@ -876,16 +876,16 @@ function UpdatePlayer() {
     var BR = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)).toString();
     var BL = (parseInt(tl.value)+parseInt(tr.value)+parseInt(br.value)+parseInt(bl.value)).toString();
     
-    var data = "Name=" + encodeURIComponent(player.Name) + "&" +
-    "color1=" + encodeURIComponent(col1.value) + "&" +
-    "color2=" + encodeURIComponent(col2.value) + "&" +
-    "color3=" + encodeURIComponent(col3.value) + "&" +
-    "topleft=" + encodeURIComponent(tl.value) + "&" +
-    "topright=" + encodeURIComponent(TR) + "&" +
-    "bottomright=" + encodeURIComponent(BR) + "&" +
-    "bottomleft=" + encodeURIComponent(BL) + "&" +
-    "position=" + encodeURIComponent(pos.value) + "&" +
-    "newname=" + encodeURIComponent(name.value);
+    var data = "Name=" + encodeURIComponent(player.name) + "&" +
+    "Color1=" + encodeURIComponent(col1.value) + "&" +
+    "Color2=" + encodeURIComponent(col2.value) + "&" +
+    "Color3=" + encodeURIComponent(col3.value) + "&" +
+    "TopLeft=" + encodeURIComponent(tl.value) + "&" +
+    "TopRight=" + encodeURIComponent(TR) + "&" +
+    "BottomRight=" + encodeURIComponent(BR) + "&" +
+    "BottomLeft=" + encodeURIComponent(BL) + "&" +
+    "Position=" + encodeURIComponent(pos.value) + "&" +
+    "NewName=" + encodeURIComponent(name.value);
 
     var id = player.id;
     
