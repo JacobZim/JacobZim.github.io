@@ -559,27 +559,34 @@ function HideUpdatePlayers() {
 function AlternateLogin() {
     //console.log("ShowLogin() called");
     var temp = document.querySelector("#login-menu");
+    var x = document.querySelector("#x-button");
     var style = getComputedStyle(temp);
     displayed = style.display;
     if (displayed =="none") {
         temp.style.display = "grid";
+        x.style.display = "block";
     } else {
         temp.style.display = "none";
+        x.style.display = "none";
     }
 }
 function ShowLogin() {
     //console.log("ShowLogin() called");
     var temp = document.querySelector("#login-menu");
+    var x = document.querySelector("#x-button");
     var style = getComputedStyle(temp);
     displayed = style.display;
     temp.style.display = "grid";
+    x.style.display = "block";
 }
 function HideLogin() {
  //console.log("ShowLogin() called");
  var temp = document.querySelector("#login-menu");
+ var x = document.querySelector("#x-button");
  var style = getComputedStyle(temp);
  displayed = style.display;
  temp.style.display = "none";
+ x.style.display = "none";
 }
 function ClearLogin() {
     var email = document.querySelector("#login-email");
@@ -1037,6 +1044,8 @@ function AddEventListeners() {
     ShowUpdatePlayersButton.addEventListener("click", AlternateUpdatePlayers);
     var ShowLoginMenuButton = document.querySelector("#show-login");
     ShowLoginMenuButton.addEventListener("click", AlternateLogin);
+    var CloseLoginMenuButton = document.querySelector("#x-button");
+    CloseLoginMenuButton.addEventListener("click", AlternateLogin);
 
     var ShowUpdateSelect = document.querySelector("#update-select");
     ShowUpdateSelect.addEventListener("change", PopulateUpdatePlayerAttributes);
